@@ -22,9 +22,9 @@ jobs:
           - { os: windows-latest, rid: win-x64, exe: yj-transit-mcp.exe }
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-dotnet@v5
+      - uses: actions/setup-dotnet@v6
         with:
           # mise.toml の dotnet と揃える
           dotnet-version: '10.0.402'
@@ -55,7 +55,7 @@ jobs:
           Copy-Item LICENSE, README.md dist/
           Compress-Archive -Path dist/* -DestinationPath yj-transit-mcp-${{ matrix.rid }}.zip
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: yj-transit-mcp-${{ matrix.rid }}
           path: yj-transit-mcp-${{ matrix.rid }}.*
@@ -68,7 +68,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: packages
           merge-multiple: true
