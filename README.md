@@ -75,23 +75,35 @@ mise で入れた dotnet は `DOTNET_ROOT` を設定しないため、`bin/` 配
 
 ## 登録
 
+MCP クライアントには、バイナリの場所を絶対パスで登録する。
+
+- Releases から落とした場合: 展開した `yj-transit-mcp`（Windows は `yj-transit-mcp.exe`）のパス
+- ソースからビルドした場合: リポジトリ直下で `$PWD/dist/yj-transit-mcp`
+
+以下の例では、バイナリのパスを `BIN` に入れておく。
+
+```sh
+BIN="$HOME/bin/yj-transit-mcp"          # Releases から落として ~/bin に置いた場合
+# BIN="$PWD/dist/yj-transit-mcp"        # ソースからビルドした場合（リポジトリ直下で）
+```
+
 ### Claude Code
 
 ```sh
-claude mcp add yj-transit --scope user -- "$PWD/dist/yj-transit-mcp"
+claude mcp add yj-transit --scope user -- "$BIN"
 ```
 
 ### Codex
 
 ```sh
-codex mcp add yj-transit -- "$PWD/dist/yj-transit-mcp"
+codex mcp add yj-transit -- "$BIN"
 ```
 
 `codex mcp add` を使わない場合は、`~/.codex/config.toml` に直接書いてもよい。
 
 ```toml
 [mcp_servers.yj-transit]
-command = "/absolute/path/to/yj-transit-mcp/dist/yj-transit-mcp"
+command = "/absolute/path/to/yj-transit-mcp"
 ```
 
 ## しくみ
